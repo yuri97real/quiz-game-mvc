@@ -1,0 +1,19 @@
+CADASTRAR JOGADOR
+"/cadastro/novoJogador"
+
+CADASTRAR QUIZ
+"/cadastro/novoQuiz"
+
+FAZER LOGIN
+"/"
+
+HOME
+"/home"
+
+INICIAR JOGO
+"/home/iniciar"
+
+LISTAR SCORES
+"/home/scores"
+
+
