@@ -23,21 +23,26 @@
             $message = [];
 
             $numberOfQuestions = count($questions);
-            $currentIndex = rand(0, $numberOfQuestions - 1);
-            $currentQuestion = $questions[$currentIndex];
-            //echo $currentIndex;
 
-            if(isset($_POST["resposta"])) {
-                if(password_verify($_POST["resposta"], $_POST["certa"])) {
-                    $message = "<script>M.toast({html: 'Acertou', classes: 'rounded, green'});</script>";
-                } else $message = "<script>M.toast({html: 'Errou', classes: 'rounded, red'});</script>";
+            if($numberOfQuestions != 0) {
+                $currentIndex = rand(0, $numberOfQuestions - 1);
+                $currentQuestion = $questions[$currentIndex];
+
+                if(isset($_POST["resposta"])) {
+                    if(password_verify($_POST["resposta"], $_POST["certa"])) {
+                        $message = "<script>M.toast({html: 'Acertou', classes: 'rounded, green'});</script>";
+                    } else $message = "<script>M.toast({html: 'Errou', classes: 'rounded, red'});</script>";
+                }
+
+                $this->view("home/iniciar", $data = ["question"=>$currentQuestion, "mensagem"=>$message]);
+                die();
             }
 
-            $this->view("home/iniciar", $data = ["question"=>$currentQuestion, "mensagem"=>$message]);
+            $this->view("home/empty", []);
 
         }
 
-        public function scores() {
+        public function scores($action = []) {
 
             $auth = $this->model("auth");
             $auth->checkLogin();
@@ -45,7 +50,9 @@
             $home = $this->model("home");
             $players = $home->getUsersInformation();
 
-            $this->view("home/scores", $data = ["players"=>$players]);
+            $action = $action[0] ?? "";
+
+            $this->view("home/scores", $data = ["action"=>$action, "players"=>$players]);
 
         }
 
