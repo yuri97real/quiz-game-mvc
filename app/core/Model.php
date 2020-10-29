@@ -13,10 +13,6 @@
             return self::$pdo;
         }
 
-        public function toastAlert($message, $color) {
-            return "<script>M.toast({html: '$message', classes: 'rounded, $color'});</script>";
-        }
-
     }
 
 ?>

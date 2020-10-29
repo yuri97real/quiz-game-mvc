@@ -13,7 +13,7 @@
         ?>
 
 
-            <a href="/home/scores/zerar" class="secondary-content">
+            <a class="secondary-content modal-trigger" href="#zerar">
                 <?php if($player["NOME"] == $_SESSION["NOME"]) echo '<i class="material-icons">clear</i>'; ?>
             </a>
         </li>
@@ -21,24 +21,25 @@
 
 <?php } ?>
 
-<?php if($data["action"] == "zerar") { ?>
 
-    <div class="row">
-        <div class="offset-s4 card">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Zerar Score</span>
-                    <p>Clicando em "Sim", todo seu score será zerado
-                    e você irá para as últimas posições desta lista!
-                    Deseja realmente isso?</p>
-                </div>
-
-                <div class="card-action">
-                    <a href="#">Sim</a>
-                    <a href="/home/scores" class="btn">Não</a>
-                </div>
-            </div>
-        </div>
+<div id="zerar" class="modal">
+    <div class="modal-content">
+        <h4>Zerar Score</h4>
+        <p> Clicando em "Sim", todo seu score será zerado
+            e você irá para as últimas posições desta lista!
+            Deseja realmente isso?
+        </p>
     </div>
 
-<?php } ?>
+    <div class="modal-footer">
+        <a href="/home/scores/zerar" class="modal-close waves-effect waves-green btn-flat">Sim</a>
+        <a href="/home/scores" class="modal-close waves-effect waves-green btn-flat">Não</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
+</script>

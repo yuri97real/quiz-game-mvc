@@ -6,16 +6,18 @@
 
         public function index() {
 
-            $mensagem = [];
+            $message = [];
 
             if(isset($_POST["fazerLogin"])) {
                 $auth = $this->model("auth");
-                $mensagem = $auth->Login($_POST["email"], $_POST["senha"]);
+                $auth->Login($_POST["email"], $_POST["senha"]);
+
+                $message = $this->toastAlert("Usuário e/ou Senha Incorretos!", "red");
             }
 
             $_SESSION = [];
 
-            $this->view("login/index", $data = ["mensagem"=>$mensagem]);
+            $this->view("login/index", $data = ["mensagem"=>$message]);
 
         }
 

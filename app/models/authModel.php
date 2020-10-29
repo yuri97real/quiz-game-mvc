@@ -22,12 +22,8 @@
 
                     header("Location: /home");
                     die();
-
                 }
             }
-
-            return "<script>M.toast({html: 'Usuário e/ou Senha Incorretos!', classes: 'rounded'});</script>";
-
         }
 
         public function checkLogin() {

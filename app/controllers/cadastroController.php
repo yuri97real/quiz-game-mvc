@@ -12,47 +12,54 @@
 
         public function novoQuiz() {
 
-            $auth = $this->model("auth");
-            $auth->checkLogin();
+            $this->checkAuth();
 
             $quiz = $this->model("save");
-            $mensagem = [];
+            $message = [];
 
             if(isset($_POST["cadastrarQuiz"])) {
-                $mensagem = $quiz->saveQuiz($_POST["dados"]);
+                $save = $quiz->saveQuiz($_POST["dados"]);
+                $color = $save ? "green" : "red";
+                $message = $save ? "Quiz Cadastrado Com Sucesso" : "Falha ao Cadastrar Quiz";
+                $message = $this->toastAlert($message, $color);
             }
 
-            $this->view("cadastro/quiz", $data = ["mensagem"=>$mensagem]);
+            $this->view("cadastro/quiz", $data = ["mensagem"=>$message]);
 
         }
 
         public function novoJogador() {
 
             $quiz = $this->model("save");
-            $mensagem = [];
+            $message = [];
 
             if(isset($_POST["cadastrarJogador"])) {
-                $mensagem = $quiz->savePlayer($_POST["nome"], $_POST["email"], $_POST["senha"]);
+                $save = $quiz->savePlayer($_POST["nome"], $_POST["email"], $_POST["senha"]);
+                $color = $save ? "green" : "red";
+                $message = $save ? "Jogador Cadastrado Com Sucesso" : "Falha ao Cadastrar Jogador";
+                $message = $this->toastAlert($message, $color);
             }
             
-            $this->view("cadastro/jogador", $data = ["mensagem"=>$mensagem]);
+            $this->view("cadastro/jogador", $data = ["mensagem"=>$message]);
 
         }
 
         public function atualizarJogador() {
 
-            $auth = $this->model("auth");
-            $auth->checkLogin();
+            $this->checkAuth();
 
-            $mensagem = [];
+            $message = [];
 
             if(isset($_POST["atualizarJogador"])) {
                 $quiz = $this->model("save");
                 $senha = $_POST["senha"] == "" ? $_SESSION["SENHA"] : password_hash($_POST["senha"], PASSWORD_DEFAULT);
-                $mensagem = $quiz->updatePlayer($_POST["nome"], $_POST["email"], $senha, $_SESSION["ID"]);
+                $update = $quiz->updatePlayer($_POST["nome"], $_POST["email"], $senha, $_SESSION["ID"]);
+                $color = $update ? "green" : "red";
+                $message = $update ? "Jogador Atualizado Com Sucesso" : "Falha ao Atualizar Jogador";
+                $message = $this->toastAlert($message, $color);
             }
 
-            $this->view("atualizar/jogador", $data = ["mensagem"=>$mensagem]);
+            $this->view("atualizar/jogador", $data = ["mensagem"=>$message]);
 
         }
 

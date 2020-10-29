@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOGO QUIZ</title>
+    <link rel="stylesheet" href="/css/custom.css">
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Materialize CSS/JS-->
@@ -14,16 +15,16 @@
 
     <?php if(isset($_SESSION["LOGADO"])) { ?>
 
-        <nav>
-            <div class="nav-wrapper">
-            <a href="/home" class="brand-logo">Quiz</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
-                <li><a href="/home/scores">Scores</a></li>
-                <li class="teal"><a href="/">Sair</a></li>
-            </ul>
-            </div>
-        </nav>
+    <nav>
+        <div class="nav-wrapper">
+        <a href="/home" class="brand-logo">Quiz</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
+            <li><a href="/home/scores">Scores</a></li>
+            <li class="teal"><a href="/">Sair</a></li>
+        </ul>
+        </div>
+    </nav>
 
     <?php } ?>
 

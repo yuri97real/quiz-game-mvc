@@ -12,9 +12,9 @@
             $result = $pdo->prepare($sql);
 
             if($result->execute($data)) {
-                return $this->toastAlert("Quiz Salvo Com Sucesso!", "green");
+                return true;
             }
-            return $this->toastAlert("Erro ao Salvar Quiz!", "red");
+            return false;
             
         }
 
@@ -27,9 +27,9 @@
             $result = $pdo->prepare($sql);
 
             if($result->execute([$nome, $email, $senha])) {
-                return $this->toastAlert("Jogador Salvo Com Sucesso!", "green");
+                return true;
             }
-            return $this->toastAlert("Erro ao Salvar Jogador!", "red");
+            return false;
             
         }
 
@@ -44,9 +44,10 @@
                 $_SESSION["NOME"] = $nome;
                 $_SESSION["EMAIL"] = $email;
                 $_SESSION["SENHA"] = $senha;
-                return $this->toastAlert("Jogador Atualizado Com Sucesso!", "green");
+                
+                return true;
             }
-            return $this->toastAlert("Erro ao Atualizar Jogador!", "red");
+            return false;
 
         }
 
