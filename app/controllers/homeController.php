@@ -14,7 +14,15 @@
         public function iniciar() {
 
             $this->checkAuth();
-            $this->view("home/iniciar", []);
+
+            $home = $this->model("home");
+            $questions = $home->getAllQuestions();
+
+            if(!empty($questions)) {
+                $this->view("home/iniciar", []);
+            } else {
+                $this->view("home/empty", []);
+            }
 
         }
 

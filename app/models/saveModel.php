@@ -51,6 +51,51 @@
 
         }
 
+        public function updateQuiz($data, $id) {
+
+            $pdo = Model::getConn();
+            $sql = "UPDATE JOGO.QUESTOES SET PERGUNTA = ?, OPCOES = ?, CERTA = ?, NIVEL = ?, CATEGORIA = ? WHERE ID = ?";
+
+            $result = $pdo->prepare($sql);
+
+            array_push($data, $id);
+
+            if($result->execute($data)) {
+                return true;
+            }
+            return false;
+
+        }
+
+        public function deleteQuiz($id) {
+
+            $pdo = Model::getConn();
+            $sql = "DELETE FROM JOGO.QUESTOES WHERE ID = ?";
+            $result = $pdo->prepare($sql);
+            $result->execute([$id]);
+            $count = $result->rowCount();
+
+            if($count > 0) {
+                return true;
+            }
+            return false;
+
+        }
+
+        public function restoreQuiz($data) {
+
+            $pdo = Model::getConn();
+            $sql = "INSERT INTO JOGO.QUESTOES VALUES (?, ?, ?, ?, ?, ?)";
+
+            $result = $pdo->prepare($sql);
+
+            if($result->execute($data)) {
+                return true;
+            }
+            return false;
+
+        }
+
     }
 
 ?>

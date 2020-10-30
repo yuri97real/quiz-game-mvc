@@ -44,6 +44,19 @@
 
         }
 
+        public function atualizarQuiz() {
+
+            $this->checkAuth();
+
+            $message = [];
+
+            $home = $this->model("home");
+            $questions = $home->getAllQuestions();
+
+            $this->view("atualizar/quiz", $data = ["questions"=>$questions, "mensagem"=>$message]);
+
+        }
+
         public function atualizarJogador() {
 
             $this->checkAuth();
@@ -60,6 +73,61 @@
             }
 
             $this->view("atualizar/jogador", $data = ["mensagem"=>$message]);
+
+        }
+
+        public function editarQuestao($index = []) {
+
+            $this->checkAuth();
+            $message = [];
+
+            if(isset($_POST["atualizarQuiz"])) {
+                $save = $this->model("save");
+                $update = $save->updateQuiz($_POST["dados"], $index[0]);
+                $color = $update ? "green" : "red";
+                $message = $update ? "Quiz Atualizado Com Sucesso" : "Falha ao Atualizar Quiz";
+                $message = $this->toastAlert($message, $color);
+            }
+
+            $quiz = $this->model("home");
+            $question = $quiz->getQuestion($index[0]);
+
+            $this->view("atualizar/editarQuestao", $data = ["question"=>$question, "message"=>$message]);
+
+        }
+
+        public function excluirQuiz($index = []) {
+
+            $quiz = $this->model("home");
+            $question = $quiz->getQuestion($index[0]);
+
+            $modify = $this->model("save");
+            $delete = $modify->deleteQuiz($index[0]);
+
+            $color = $delete ? "green" : "red";
+            $message = $delete ? "Quiz Atualizado Com Sucesso" : "Falha ao Atualizar Quiz";
+            $message = $this->toastAlert($message, $color);
+
+            $this->view("excluir/resultado", $data = ["sucess"=>$delete, "question"=>$question, "message"=>$message]);
+
+        }
+
+        public function restaurarQuiz() {
+
+            $message = [];
+
+            if(isset($_POST["recovery"])) {
+
+                $modify = $this->model("save");
+                $restore = $modify->restoreQuiz(explode(" | ", $_POST["recovery"]));
+
+                $color = $restore ? "green" : "red";
+                $message = $restore ? "Quiz Restaurado Com Sucesso" : "Falha ao Restaurar Quiz";
+                $message = $this->toastAlert($message, $color);
+
+            }
+
+            $this->view("excluir/desfazer", $data = ["sucess"=>$restore, "message"=>$message]);
 
         }
 

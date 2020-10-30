@@ -16,6 +16,18 @@
 
         }
 
+        public function getQuestion($id) {
+
+            $pdo = Model::getConn();
+            $sql = "SELECT * FROM JOGO.QUESTOES WHERE ID = ?";
+
+            $result = $pdo->prepare($sql);
+            $result->execute([$id]);
+
+            return $result->fetch(\PDO::FETCH_ASSOC);
+
+        }
+
         public function getAllQuestions() {
 
             $pdo = Model::getConn();

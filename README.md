@@ -15,7 +15,7 @@ Requisitos Funcionais
     O jogo deve mostrar perguntas em níveis de dificuldade []
     O jogo deve ter 5 níveis de dificuldade com 5 perguntas cada, totalizando 25 perguntas []
 
-Rotas
+Rotas Principais
 
     CADASTRAR JOGADOR
     "/cadastro/novoJogador"
