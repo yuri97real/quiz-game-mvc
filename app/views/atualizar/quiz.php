@@ -45,7 +45,7 @@
 
 <?php }
 } else {
-    echo "<h1>Nenhum Dado Cadastrado!</h1>";
+    echo "<h1 class=''>Nenhum Dado Cadastrado!</h1>";
     echo "<p>Adicione Perguntas a Esse Quiz.</p>";
     echo "<a href='/cadastro/novoQuiz' class='waves-effect waves-light orange btn'>Novo Quiz</a>";
 }?>

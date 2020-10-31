@@ -14,25 +14,41 @@
 <body>
 
     <?php if(isset($_SESSION["LOGADO"])) { ?>
-
+    
+    <div class="">
     <nav>
         <div class="nav-wrapper">
-        <a href="/home" class="brand-logo">Quiz</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
-            <li><a href="/home/scores">Scores</a></li>
-            <li class="teal"><a href="/">Sair</a></li>
-        </ul>
+            <a href="/home" class="brand-logo">Quiz</a>
+            <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
+                <li><a href="/home/scores">Scores</a></li>
+                <li class="teal"><a href="/">Sair</a></li>
+            </ul>
         </div>
     </nav>
+    </div>
+
+    <ul id="mobile-demo" class="sidenav">
+        <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
+        <li><a href="/home/scores">Scores</a></li>
+        <li class="teal"><a href="/">Sair</a></li>
+    </ul>
 
     <?php } ?>
 
     <div class="row container">
 
         <?php require_once "../app/views/$view.php"; ?>
-
+        
     </div><!--row container-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+    </script>
 
 </body>
 </html>
