@@ -26,13 +26,6 @@
             }
         }
 
-        public function checkLogin() {
-            if(!isset($_SESSION["LOGADO"])) {
-                header("Location: /");
-                die;
-            }
-        }
-
     }
 
 ?>

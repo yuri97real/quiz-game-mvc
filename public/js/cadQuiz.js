@@ -9,7 +9,7 @@ btn.addEventListener("click", e => {
     const niveis = document.querySelector("#niveis");
     const categorias = document.querySelector("#categorias")
     const opcoes = document.querySelector("#opcoes")
-    const vetOpcoes = opcoes.value.split(",")
+    const vetOpcoes = opcoes.value.split("/")
     const certa = document.querySelector("#certa").value
 
     if(vetOpcoes.length != 4) {

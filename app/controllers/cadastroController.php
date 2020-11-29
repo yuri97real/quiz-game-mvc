@@ -12,7 +12,7 @@
 
         public function novoQuiz() {
 
-            $this->checkAuth();
+            $this->checkAdmin();
 
             $quiz = $this->model("save");
             $message = [];
@@ -46,7 +46,7 @@
 
         public function atualizarQuiz() {
 
-            $this->checkAuth();
+            $this->checkAdmin();
 
             $message = [];
 
@@ -78,7 +78,7 @@
 
         public function editarQuestao($index = []) {
 
-            $this->checkAuth();
+            $this->checkAdmin();
             $message = [];
 
             if(isset($_POST["atualizarQuiz"])) {
@@ -97,6 +97,8 @@
         }
 
         public function excluirQuiz($index = []) {
+
+            $this->chechAdmin();
 
             $quiz = $this->model("home");
             $question = $quiz->getQuestion($index[0]);

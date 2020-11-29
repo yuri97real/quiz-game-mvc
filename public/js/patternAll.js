@@ -27,7 +27,7 @@ function toUpper(inputs) {
     })
 }
 function organizeOptions(options) {
-    let withoutCommas = options.value.split(",")
+    let withoutCommas = options.value.split("/")
     let newInputOptions = []
 
     withoutCommas.forEach(option => {
@@ -35,5 +35,5 @@ function organizeOptions(options) {
         newInputOptions.push(withoutSpaces.join(" "))
     })
 
-    options.value = newInputOptions.join(",").toUpperCase()
+    options.value = newInputOptions.join("/").toUpperCase()
 }

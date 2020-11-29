@@ -8,7 +8,7 @@ let score = 0
 
 const fetchQuestions = async () => {
 
-    const response = await fetch("http://localhost:3030/api/questions")
+    const response = await fetch(`http://${location.hostname}/api/questions`)
     const data = await response.json()
 
     let correct = renderQuiz(data, data.length)
@@ -21,7 +21,7 @@ const renderQuiz = (data, length) => {
     if(length == 0) {
 
         title.innerText = "Você Ganhou!"
-        divButtons.setAttribute("class", "hidden")
+        divButtons.setAttribute("class", "hide")
 
         saveResults()
 
@@ -30,14 +30,18 @@ const renderQuiz = (data, length) => {
 
     const index = getQuestionIndex(length)
     const currentQuiz = data[index]
-    const options = currentQuiz.OPCOES.split(",")
+    const options = currentQuiz.OPCOES.split("/")
+    //console.log(options)
+    const suffleOptions = getShuffleOptions(options, options.length)
+    //console.log(suffleOptions)
 
     data.splice(index, 1)
+
     title.innerText = currentQuiz.PERGUNTA
     status.innerText = `Vidas: ${lifes} | Score: ${score}`
 
     buttons.forEach((button, pos) => {
-        button.innerText = options[pos]
+        button.innerText = suffleOptions[pos]
     })
 
     return currentQuiz.CERTA
@@ -45,6 +49,21 @@ const renderQuiz = (data, length) => {
 
 const getQuestionIndex = length => {
     return Math.floor(Math.random() * length)
+}
+
+const getShuffleOptions = (buttons, length) => {
+
+    let array = []
+
+    for(let i=0; i<length; i++) {
+
+        let index = getQuestionIndex(buttons.length)
+
+        array.push(buttons[index])
+        buttons.splice(index, 1)
+    }
+
+    return array
 }
 
 const isCorrect = (correct, selected) => {
@@ -59,7 +78,7 @@ const gameOver = () => {
 
     title.innerText = "Você Perdeu!"
     status.innerText = `Vidas: 0 | Score: ${score}`
-    divButtons.setAttribute("class", "hidden")
+    divButtons.setAttribute("class", "hide")
 
     saveResults()
 

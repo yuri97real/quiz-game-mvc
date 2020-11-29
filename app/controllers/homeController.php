@@ -4,16 +4,15 @@
 
     class HomeController extends Controller {
 
-        public function index() {
-
+        public function __construct() {
             $this->checkAuth();
-            $this->view("home/index", []);
+        }
 
+        public function index() {
+            $this->view("home/index", []);
         }
 
         public function iniciar() {
-
-            $this->checkAuth();
 
             $home = $this->model("home");
             $questions = $home->getAllQuestions();
@@ -27,17 +26,20 @@
         }
 
         public function empty() {
-
-            $this->checkAuth();
             $this->view("home/empty", []);
+        }
 
+        public function block() {
+            $this->view("home/block", []);
         }
 
         public function scores($action = []) {
 
-            $this->checkAuth();
-
             $home = $this->model("home");
+
+            if(!empty($action) && $action[0] == "zerar") {
+                $home->updateScore(0, $_SESSION["ID"]);
+            }
 
             if(isset($_POST["score"])) {
                 $currentScore = $home->getScoreUser($_SESSION["ID"]);

@@ -19,20 +19,43 @@
     <nav>
         <div class="nav-wrapper">
             <a href="/home" class="brand-logo">Quiz</a>
-            <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
                 <li><a href="/home/scores">Scores</a></li>
+                <li class="orange"><a href="/cadastro">Configurações</a></li>
                 <li class="teal"><a href="/">Sair</a></li>
             </ul>
         </div>
     </nav>
     </div>
 
-    <ul id="mobile-demo" class="sidenav">
-        <li><a href="/cadastro/atualizarJogador">Usuário</a></li>
-        <li><a href="/home/scores">Scores</a></li>
-        <li class="teal"><a href="/">Sair</a></li>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+
+                <div class="background">
+                    <img src="/images/background-menu-mobile.svg" style="width: 320px;">
+                </div>
+
+                <img class="circle profile" src="/images/profile.svg">
+
+                <div class="user-data">
+                    <span class="white-text name"><?= $_SESSION["NOME"] ?></span>
+                    <span class="white-text email"><?= $_SESSION["EMAIL"] ?></span>
+                </div>
+
+            </div>
+        </li>
+
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Meus Dados</a></li>
+        <li><a href="/cadastro/atualizarJogador">Atualizar Cadastro</a></li>
+        <li><a href="/home/scores">Ver Scores</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Opções</a></li>
+        <li class=""><a href="/cadastro">Configurações</a></li>
+        <li class=""><a href="/">Sair</a></li>
     </ul>
 
     <?php } ?>

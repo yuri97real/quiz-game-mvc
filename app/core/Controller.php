@@ -19,8 +19,17 @@
         }
 
         public function checkAuth() {
-            $auth = $this->model("auth");
-            $auth->checkLogin();
+            if(!isset($_SESSION["LOGADO"])) {
+                header("Location: /");
+                die;
+            }
+        }
+
+        public function checkAdmin() {
+            if($_SESSION["ADM"] != 1) {
+                header("Location: /home/block");
+                die;   
+            }
         }
 
         public function toastAlert($message, $color) {

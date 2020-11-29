@@ -8,7 +8,7 @@
         
         public static function getConn() {
             if(!isset(self::$pdo)) {
-                self::$pdo = new \PDO("mysql:host=localhost", "yuri97", "123456");
+                self::$pdo = new \PDO("mysql:host=localhost", "root", "");
             }
             return self::$pdo;
         }

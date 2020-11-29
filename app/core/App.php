@@ -4,51 +4,60 @@
 
     class App {
 
-        protected $controller = "login", $method = "index", $params = [];
-
         public function __construct() {
+
+            $route = $this->parseURL();
+
+            $controller = $this->getController($route);
+            $method = $this->getMethod($controller, $route);
+            $params = $this->getParams($route);
+
+            call_user_func([$controller, $method], $params);
 
             /*
                 $route[1] SÃO CONTROLLERS
                 $route[2] SÃO MÉTODOS
                 $route[>2] O QUE SOBRA SÃO PARÂMETROS
             */
+            
+        }
 
-            $route = $this->parseURL();
-            $fileController = $route[1] ?? $this->controller;
-            $path = "../app/controllers/{$fileController}Controller.php";
+        public function getController($route) {
 
-            if(file_exists($path)) {
-                $this->controller = $fileController;
-                unset($route[1]);
+            $controller = $route[0] ?? "login";
+            $controller .= "Controller";
+
+            if(!file_exists("../app/controllers/{$controller}.php")) {
+                $controller = "ErrorController";
             }
 
-            require_once "../app/controllers/".$this->controller."Controller.php";
+            require_once "../app/controllers/{$controller}.php";
 
-            $class = $this->controller."Controller";
+            return new $controller;
+        }
 
-            $this->controller = new $class;
+        public function getMethod($class, $route) {
 
-            if(isset($route[2])) {
-                if(method_exists($this->controller, $route[2])) {
-                    $this->method = $route[2];
-                    unset($route[0]);
-                    unset($route[2]);
-                }
+            $method = $route[1] ?? "index";
+
+            if(!method_exists($class, $method)) {
+                $method = "index";
             }
 
-            $this->params = $route ? array_values($route) : [];
+            return $method;
+        }
 
-            call_user_func([$this->controller, $this->method], $this->params);
+        public function getParams($route) {
 
+            unset($route[0], $route[1]);
+
+            return $route ? array_values($route) : [];
         }
 
         public function parseURL() {
-            $url = $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+            $url = $_SERVER["REQUEST_URI"];
             $url = explode("/", $url);
             $url = array_filter($url);
-
-            //print_r(array_values($url));
 
             return array_values($url);
         }

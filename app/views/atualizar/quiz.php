@@ -1,3 +1,18 @@
+<!-- BARRA DE PESQUISA -->
+<nav>
+    <div class="nav-wrapper">
+
+        <form>
+            <div class="input-field">
+                <input type="search" id="search" class="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </form>
+
+    </div>
+</nav>
+
 <?php
     if(!empty($data["questions"])) {
 
@@ -5,10 +20,12 @@
                 <p>Clicando sobre um dos enunciados, será possível editá-los.</p>
                 <a href='' class='waves-effect waves-light red btn'>Deletar Tudo</a>";
 
-        foreach($data["questions"] as $question) {
+        echo "<div class='results'>";
+
+        foreach($data["questions"] as $question):
 ?>
 
-    <ul class="collection">
+    <ul class="collection default">
         <li class="collection-item avatar">
 
             <i class="material-icons circle green">insert_chart</i>
@@ -25,9 +42,6 @@
         </li>
     </ul>
 
-
-
-
 <div id="deletar/<?php echo $question["ID"]; ?>" class="modal">
     <div class="modal-content">
         <h4>Deletar Questão</h4>
@@ -43,12 +57,25 @@
     </div>
 </div>
 
-<?php }
-} else {
-    echo "<h1 class=''>Nenhum Dado Cadastrado!</h1>";
-    echo "<p>Adicione Perguntas a Esse Quiz.</p>";
-    echo "<a href='/cadastro/novoQuiz' class='waves-effect waves-light orange btn'>Novo Quiz</a>";
-}?>
+<?php endforeach ?>
+
+</div><!--results-->
+
+<ul class="collection search-results">
+
+</ul>
+
+<script src="/js/searchPreview2.js"></script>
+
+<?php
+
+    } else {
+        echo "<h1 class=''>Nenhum Dado Cadastrado!</h1>";
+        echo "<p>Adicione Perguntas a Esse Quiz.</p>";
+        echo "<a href='/cadastro/novoQuiz' class='waves-effect waves-light orange btn'>Novo Quiz</a>";
+    }
+
+?>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

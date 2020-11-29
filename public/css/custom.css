@@ -1,3 +1,14 @@
-.hidden {
-    display: none;
+.btn {
+    margin: 2px;
+}
+
+/* MENU MOBILE */
+.profile {
+    box-shadow: 0px 0px 10px black;
+}
+.user-data {
+    margin-top: 10px;
+    padding: 2px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.397);
 }
