@@ -1,10 +1,20 @@
 const search = document.querySelector("#search")
 const results = document.querySelector(".results")
 const searchResults = document.querySelector(".search-results")
+const close = document.querySelector(".close")
+
+search.addEventListener("keyup", () => startSearching())
+
+close.addEventListener("click", () => {
+    search.value = ""
+    startSearching()
+})
 
 const fetchQuestionsBySearch = async keyword => {
 
     keyword = keyword.split(" ").join("-")
+
+    //console.log(`http://${location.host}/api/search/${keyword}`)
 
     const response = await fetch(`http://${location.host}/api/search/${keyword}`)
     const data = await response.json()
@@ -13,10 +23,11 @@ const fetchQuestionsBySearch = async keyword => {
 
 }
 
-search.addEventListener("keyup", e => {
+const startSearching = () => {
+
     setTimeout(() => {
 
-        console.clear()
+        //console.clear()
 
         const patterned = search.value.split(" ").filter(value => value != "")
 
@@ -36,14 +47,17 @@ search.addEventListener("keyup", e => {
 
         }
 
-    }, 1000)
-})
+    }, 700)
+
+}
 
 const renderQuizFound = data => {
+    
+    searchResults.innerHTML = ""
 
     data.forEach(question => {
 
-        searchResults.innerHTML = 
+        searchResults.innerHTML += 
 
         `
             <li class="collection-item avatar">

@@ -98,7 +98,7 @@
 
         public function excluirQuiz($index = []) {
 
-            $this->chechAdmin();
+            $this->checkAdmin();
 
             $quiz = $this->model("home");
             $question = $quiz->getQuestion($index[0]);

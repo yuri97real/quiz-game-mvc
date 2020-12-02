@@ -7,7 +7,7 @@
         public function __construct() {
 
             $route = $this->parseURL();
-
+            
             $controller = $this->getController($route);
             $method = $this->getMethod($controller, $route);
             $params = $this->getParams($route);

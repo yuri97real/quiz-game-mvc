@@ -21,6 +21,8 @@ const renderQuiz = (data, length) => {
     if(length == 0) {
 
         title.innerText = "Você Ganhou!"
+        status.innerText = `Vidas: ${lifes} | Score: ${score}`
+
         divButtons.setAttribute("class", "hide")
 
         saveResults()
@@ -45,6 +47,7 @@ const renderQuiz = (data, length) => {
     })
 
     return currentQuiz.CERTA
+
 }
 
 const getQuestionIndex = length => {
@@ -87,18 +90,20 @@ const gameOver = () => {
 
 const buttonsActions = (data, correct) => {
 
-    buttons.forEach(button => {
-        button.addEventListener("click", () => {
-            if(!isCorrect(correct, button.innerText)) {
-                M.toast({html: "Você Errou!", classes: "rounded, red"})
-                lifes -= 1
-            } else score += 1
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
 
-            if(lifes != 0) {
-                correct = renderQuiz(data, data.length)
-            } else gameOver()
+                if(!isCorrect(correct, button.innerText)) {
+                    M.toast({html: "VOCÊ ERROU!", classes: "rounded, red"})
+                    lifes -= 1
+                } else score += 1
+
+                if(lifes != 0) {
+                    correct = renderQuiz(data, data.length)
+                } else gameOver()
+
+            })
         })
-    })
 }
 
 const saveResults = () => {
