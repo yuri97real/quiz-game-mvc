@@ -1,3 +1,6 @@
+<h1>Quiz Game MVC</h1>
+<h2>Login</h2>
+
 <form action="" method="post">
 
     <div class="input-field">

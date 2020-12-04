@@ -1,3 +1,5 @@
+<h1>Novo Jogador</h1>
+
 <form method="POST">
 
     <div class="input-field">

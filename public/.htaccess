@@ -1,4 +1,11 @@
 RewriteEngine On
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+Options -Indexes
+
+ErrorDocument 403 http://localhost/error
+ErrorDocument 404 http://localhost/error
+
 RewriteRule ^(.*)$ index.php

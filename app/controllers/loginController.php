@@ -4,6 +4,17 @@
 
     class LoginController extends Controller {
 
+        private $message = [];
+
+        public function __construct()
+        {
+            if(!empty($_SESSION)) {
+                $this->message = $this->toastAlert("Você Está Deslogado!", "orange");
+            }
+
+            $_SESSION = [];
+        }
+
         public function index() {
 
             $message = [];
@@ -12,12 +23,10 @@
                 $auth = $this->model("auth");
                 $auth->Login($_POST["email"], $_POST["senha"]);
 
-                $message = $this->toastAlert("Usuário e/ou Senha Incorretos!", "red");
+                $this->message = $this->toastAlert("Usuário e/ou Senha Incorretos!", "red");
             }
 
-            $_SESSION = [];
-
-            $this->view("login/index", $data = ["mensagem"=>$message]);
+            $this->view("login/index", $data = ["mensagem"=>$this->message]);
 
         }
 
