@@ -51,7 +51,7 @@
             $index = $params[0] ?? 1;
             $index = is_numeric($index) && $index > 0 ? $index : 1;
 
-            $limit = 1;
+            $limit = 50;
             $offset = is_numeric($index) ? $limit * ($index - 1) : 0;
 
             $message = [];

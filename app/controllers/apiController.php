@@ -27,20 +27,22 @@
 
         }
 
-        public function search($index = []) {
+        public function search($params = []) {
 
-            if(!empty($index)) {
+            $index = $params[0] ?? 1;
+            $index = is_numeric($index) && $index > 0 ? $index : 1;
 
-                $search = $this->model("search");
+            $limit = 50;
+            $offset = is_numeric($index) ? $limit * ($index - 1) : 0;
 
-                $keyword = explode("-", $index[0]);
-                $keyword = implode(" ", $keyword);
+            $keyword = $_GET["keyword"] ?? "";
+            
+            if($keyword == "") $this->json();
 
-                $questions = $search->searchQuiz($keyword);
+            $search = $this->model("search");
+            $questions = $search->searchQuiz($keyword, $limit, $offset);
 
-                $this->json($questions);
-
-            }
+            $this->json($questions);
 
         }
 

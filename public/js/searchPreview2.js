@@ -3,6 +3,9 @@ const results = document.querySelector(".results")
 const searchResults = document.querySelector(".search-results")
 const close = document.querySelector(".close")
 
+search.addEventListener("keydown", (e) => {
+    if(e.key == "Enter") e.preventDefault()
+})
 search.addEventListener("keyup", () => startSearching())
 
 close.addEventListener("click", () => {
@@ -12,11 +15,11 @@ close.addEventListener("click", () => {
 
 const fetchQuestionsBySearch = async keyword => {
 
-    keyword = keyword.split(" ").join("-")
+    keyword = keyword.replaceAll(" ", "%20")
 
-    //console.log(`http://${location.host}/api/search/${keyword}`)
+    const page = document.querySelector(".pagination .active")
 
-    const response = await fetch(`http://${location.host}/api/search/${keyword}`)
+    const response = await fetch(`http://${location.host}/api/search/${page.innerText}/?keyword=${keyword}`)
     const data = await response.json()
 
     renderQuizFound(data)
@@ -83,3 +86,16 @@ const renderQuizFound = data => {
 
 }
 
+const fixRoute = (elem) => {
+
+    let keyword = search.value.replaceAll(" ", "")
+
+    if(keyword == "") return
+
+    let link = elem.href.split("/").slice(0, 6).join("/")
+
+    elem.href = link + `/?keyword=${keyword}`
+
+}
+
+startSearching()

@@ -4,7 +4,7 @@
 
         <form>
             <div class="input-field">
-                <input type="search" id="search" class="search" required>
+                <input type="search" id="search" class="search" value="<?= $_GET["keyword"] ?? "" ?>" required>
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons close">close</i>
             </div>
@@ -25,12 +25,16 @@
             $next = $current + 1;
             $previous = $current - 1;
 
-            $limit = $current + 5;
+            $start = $current - 2;
+            $limit = $current + 4;
 
-            echo "<li class='active'><a href='/cadastro/atualizarQuiz/{$current}'>{$current}</a></li>";
+            $pages = range($start, $limit);
+            $pages = array_filter($pages, function($page) { return $page > 0; });
+            $pages = array_values($pages);
 
-            for($i=$next; $i<$limit; $i++) {
-                echo "<li><a href='/cadastro/atualizarQuiz/{$i}'>{$i}</a></li>";
+            for($i=$pages[0]; $i<$limit; $i++) {
+                $class = $i == $current ? " class='active'" : "";
+                echo "<li{$class}><a onclick='fixRoute(this)' href='/cadastro/atualizarQuiz/{$i}'>{$i}</a></li>";
             }
         ?>
 
