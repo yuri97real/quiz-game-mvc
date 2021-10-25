@@ -28,10 +28,10 @@
 
         }
 
-        public function getAllQuestions() {
+        public function getAllQuestions($limit = 50, $offset = 0) {
 
             $pdo = Model::getConn();
-            $sql = "SELECT * FROM JOGO.QUESTOES";
+            $sql = "SELECT * FROM JOGO.QUESTOES LIMIT {$limit} OFFSET {$offset}";
 
             $result = $pdo->prepare($sql);
             $result->execute();

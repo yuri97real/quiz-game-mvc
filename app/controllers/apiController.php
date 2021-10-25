@@ -14,7 +14,7 @@
             
             $array = ["message"=>"Welcome to Quiz Game", "author"=>"Yuri Seabra Maciel"];
 
-            $this->viewJSON($array);
+            $this->json($array);
         }
 
         public function questions($index = []) {
@@ -23,7 +23,7 @@
             $questions = $home->getAllQuestions();
             $index = $index[0] ?? "";
 
-            $this->viewJSON($questions, $index);
+            $this->json($questions, $index);
 
         }
 
@@ -38,7 +38,7 @@
 
                 $questions = $search->searchQuiz($keyword);
 
-                $this->viewJSON($questions);
+                $this->json($questions);
 
             }
 

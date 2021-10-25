@@ -13,12 +13,39 @@
     </div>
 </nav>
 
+<div class="center">
+    <?php $current = $data["page"]; ?>
+
+    <ul class="pagination">
+        <li class="<?= $current == 1 ? "disabled" : "" ?>">
+            <a href="/cadastro/atualizarQuiz/1"><i class="material-icons">chevron_left</i></a>
+        </li>
+
+        <?php
+            $next = $current + 1;
+            $previous = $current - 1;
+
+            $limit = $current + 5;
+
+            echo "<li class='active'><a href='/cadastro/atualizarQuiz/{$current}'>{$current}</a></li>";
+
+            for($i=$next; $i<$limit; $i++) {
+                echo "<li><a href='/cadastro/atualizarQuiz/{$i}'>{$i}</a></li>";
+            }
+        ?>
+
+        <li>
+            <a href="/cadastro/atualizarQuiz/<?= $limit ?>"><i class="material-icons">chevron_right</i></a>
+        </li>
+    </ul><!--pagination-->
+</div><!--center-->
+
 <?php
     if(!empty($data["questions"])) {
 
         echo   "<h3>Escolha uma Questão Abaixo</h3>
                 <p>Clicando sobre um dos enunciados, será possível editá-los.</p>
-                <a href='' class='waves-effect waves-light red btn'>Deletar Tudo</a>";
+                <a href='' class='hide waves-effect waves-light red btn'>Deletar Tudo</a>";
 
         echo "<div class='results'>";
 

@@ -44,16 +44,25 @@
 
         }
 
-        public function atualizarQuiz() {
+        public function atualizarQuiz($params = []) {
 
             $this->checkAdmin();
+
+            $index = $params[0] ?? 1;
+            $index = is_numeric($index) && $index > 0 ? $index : 1;
+
+            $limit = 1;
+            $offset = is_numeric($index) ? $limit * ($index - 1) : 0;
 
             $message = [];
 
             $home = $this->model("home");
-            $questions = $home->getAllQuestions();
+            $questions = $home->getAllQuestions($limit, $offset);
 
-            $this->view("atualizar/quiz", $data = ["questions"=>$questions, "mensagem"=>$message]);
+            $this->view("atualizar/quiz", $data = [
+                "questions"=>$questions, "mensagem"=>$message,
+                "page"=> $index
+            ]);
 
         }
 
