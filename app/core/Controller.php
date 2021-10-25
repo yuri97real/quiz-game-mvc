@@ -14,26 +14,37 @@
             require_once "../app/views/template.php";
         }
 
-        public function viewJSON($data = [], $index = []) {
-            require_once "../app/views/json.php";
+        public function json($data = []) {
+            echo json_encode($data); die;
         }
 
         public function checkAuth() {
-            if(!isset($_SESSION["LOGADO"])) {
-                header("Location: /");
-                die;
-            }
+            if(isset($_SESSION["LOGADO"])) return true;
+            $this->redirect("/");
         }
 
         public function checkAdmin() {
-            if($_SESSION["ADM"] != 1) {
-                header("Location: /home/block");
-                die;   
-            }
+            if($_SESSION["ADM"] == 1) return true;
+            $this->redirect("/home/block");
         }
 
         public function toastAlert($message, $color) {
             return "<script>M.toast({html: '$message', classes: 'rounded, $color'})</script>";
+        }
+
+        public function redirect($route = "/home")
+        {
+            header("Location: {$route}"); die;
+        }
+
+        public function root($path = "")
+        {
+            $absDir = str_replace("\\", "/", __DIR__);
+            $absDir = str_replace([
+                "/app", "/core", "/public"
+            ], "", $absDir);
+            
+            return $absDir . $path;
         }
 
     }

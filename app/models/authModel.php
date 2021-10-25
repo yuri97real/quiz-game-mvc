@@ -4,26 +4,31 @@
 
     class authModel extends Model {
 
-        public function Login($email, $senha) {
+        public function getUserBy($key, $value)
+        {
+            $pdo = Model::getConn();
+            $key = mb_strtoupper($key);
 
+            $sql = "SELECT * FROM JOGO.USUARIOS WHERE {$key} = ?";
+
+            $result = $pdo->prepare($sql);
+            $result->execute([$value]);
+
+            return $result->fetch(\PDO::FETCH_ASSOC);
+        }
+
+        public function countUsers()
+        {
             $pdo = Model::getConn();
 
-            $sql = "SELECT * FROM JOGO.USUARIOS WHERE EMAIL = ?";
+            $sql = "SELECT COUNT(ID) AS TOTAL FROM JOGO.USUARIOS";
+
             $result = $pdo->prepare($sql);
-            $result->execute([$email]);
+            $result->execute();
 
-            if($result->rowCount() > 0) {
+            $total = $result->fetch(\PDO::FETCH_ASSOC);
 
-                $data = $result->fetch(\PDO::FETCH_ASSOC);
-
-                if(password_verify($senha, $data["SENHA"])) {
-                    $_SESSION = $data;
-                    $_SESSION["LOGADO"] = TRUE;
-
-                    header("Location: /home");
-                    die();
-                }
-            }
+            return $total["TOTAL"] ?? 0;
         }
 
     }
