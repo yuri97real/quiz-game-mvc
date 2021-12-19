@@ -1,11 +1,12 @@
 <?php
-    session_start();
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_erros', 1);
-    error_reporting(E_ALL);
+session_start();
 
-    require "../vendor/autoload.php";
+ini_set('display_errors', 1);
+ini_set('display_startup_erros', 1);
+error_reporting(E_ALL);
 
-    $app = new app\core\App;
-?>
+require_once "../vendor/autoload.php";
+require_once "../config.php";
+
+new app\core\App;
